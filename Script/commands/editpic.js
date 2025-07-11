@@ -7,7 +7,7 @@ module.exports.config = {
   version: "6.9",
   credits: "API Fahim mode by Ullash ッ",
   countDown: 5,
-  hasPermssion: 1,
+  hasPermssion: 2,
   category: "AI",
   commandCategory: "AI",
   description: "Edit images using Edit AI",
