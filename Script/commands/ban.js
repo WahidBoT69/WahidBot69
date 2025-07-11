@@ -1,7 +1,7 @@
 module.exports.config = {
 	name: "ban",
 	version: "2.0.5",
-	hasPermssion: 0,
+	hasPermssion: 2,
 	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
 	description: "Permanently ban members from the group",
 	commandCategory: "group",
