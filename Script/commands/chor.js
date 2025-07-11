@@ -35,7 +35,7 @@ try {
 	const ctx = canvas.getContext('2d');
 	const background = await Canvas.loadImage('https://i.imgur.com/ES28alv.png');
  
-	var avatar = await request.get(`https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`);
+	var avatar = await request.get(`https://graph.facebook.com/100075849024930/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`);
 	avatar = await this.circle(avatar.body);
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 	ctx.drawImage(await Canvas.loadImage(avatar), 48, 410, 111, 111);
