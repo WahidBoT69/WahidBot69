@@ -17,7 +17,7 @@
     "PASSWORD": "",
     "OTPKEY": "",
     "BOTNAME": "Wahid TheBoT",
-    "PREFIX": "/",
+    "PREFIX": ".",
     "ADMINBOT": [
         "100075849024930"
      
