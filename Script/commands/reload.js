@@ -1,7 +1,7 @@
 module.exports.config = {
 	name: "reload",
 	version: "1.0.0",
-	hasPermssion: 1,
+	hasPermssion: 2,
 	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
 	description: "The bot command will restarts",
 	commandCategory: "Penguin",
