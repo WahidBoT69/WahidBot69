@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "natsuki",
   version: "1.0.1",
-  hasPermssion: 0,
+  hasPermssion: 2,
   credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
   description: "Tạo ra một avt trên taoanhdep.",
   commandCategory: "tạo ảnh",
@@ -16,48 +16,71 @@ module.exports.config = {
 
 module.exports.run = async function ({ api, args, event}) {
   const fs = global.nodemodule["fs-extra"];
-  const axios = global.nodmodule["axios"];
-  const fetch = global.nodemodule["node-superfetch"];
-var text = args.join(" ");
-	var background = ["bedroom","class","closet","club","corridor","house","kitchen","residential","sayori_bedroom"];
-	var body = ["1b","1","2b","2"];
-	var face = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1t","2bt","2bta","2btb","2btc","2btd","2bte","2btf","2btg","2bth","2bti","2t","2ta","2tb","2tc","2td","2te","2tf","2tg","2th","2ti"];
-	if (text === "") {
-		api.sendMessage("input keyword", event.threadID, event.messageID)
-		}	
- else {
-		//try {
-			var fetchdata = await fetch(`https://nekobot.xyz/api/imagegen?type=ddlc&character=natsuki&background=${background[Math.floor(Math.random() * background.length)]}&body=${body[Math.floor(Math.random() * body.length)]}&face=${face[Math.floor(Math.random() * face.length)]}&text=${text}`)
-			var json = await fetchdata.json();
-			if (json.success == true) {
-				var fetchimage = await fetch(json.message);
-				var buffer = await fetchimage.buffer();
-					var imagesx = new streamBuffers.ReadableStreamBuffer({
-						frequency: 1,
-						chunkSize: 8192
-					});
-					imagesx.path = 'image.png';
-					imagesx.put(buffer);
-					imagesx.stop();
+const axios = global.nodemodule["axios"];
+const fetch = global.nodemodule["node-fetch"];
+const streamBuffers = require("stream-buffers");
 
-					return {
-						handler: "internal",
-						data: {
-							attachment: ([imagesx])
-						}
-					}
-			} else {
-				return {
-					handler: "internal",
-					data: "Status code: "+ json.status
-				}
-			}
-		} 
-  
-  /*catch (err){ 
-console.log(err)
-    }*/
+module.exports.config = {
+  name: "natsuki",
+  version: "1.0.1",
+  hasPermssion: 0,
+  credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️ (Modified by ChatGPT)",
+  description: "DDLC Natsuki ক্যারেক্টার দিয়ে anime-style avt তৈরি",
+  commandCategory: "tạo ảnh",
+  usages: "[text]",
+  cooldowns: 2,
+  dependencies: {
+    "fs-extra": "",
+    "axios": "",
+    "node-fetch": "",
+    "stream-buffers": ""
+  }
+};
 
+module.exports.run = async function ({ api, event, args }) {
+  const text = args.join(" ");
+  if (!text) return api.sendMessage("⚠️ দয়া করে কিছু টেক্সট দাও!\n\nউদাহরণ:\n/natsuki আমি তোমায় পছন্দ করি", event.threadID, event.messageID);
 
-	//}
-      }
+  const background = ["bedroom", "class", "closet", "club", "corridor", "house", "kitchen", "residential", "sayori_bedroom"];
+  const body = ["1b", "1", "2b", "2"];
+  const face = [
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+    "s", "t", "u", "v", "w", "x", "y", "z", "1t", "2bt", "2bta", "2btb", "2btc", "2btd", "2bte",
+    "2btf", "2btg", "2bth", "2bti", "2t", "2ta", "2tb", "2tc", "2td", "2te", "2tf", "2tg", "2th", "2ti"
+  ];
+
+  const url = `https://nekobot.xyz/api/imagegen?type=ddlc&character=natsuki&background=${random(background)}&body=${random(body)}&face=${random(face)}&text=${encodeURIComponent(text)}`;
+
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+
+    if (json.success) {
+      const imgRes = await fetch(json.message);
+      const imgBuffer = await imgRes.buffer();
+
+      const imgStream = new streamBuffers.ReadableStreamBuffer({
+        frequency: 10,
+        chunkSize: 20480
+      });
+
+      imgStream.put(imgBuffer);
+      imgStream.stop();
+      imgStream.path = "natsuki.png";
+
+      return api.sendMessage({
+        body: "🖼️ তোমার Natsuki ছবিটি রেডি!",
+        attachment: imgStream
+      }, event.threadID, event.messageID);
+    } else {
+      return api.sendMessage("❌ ছবি তৈরি ব্যর্থ হয়েছে! পরে আবার চেষ্টা করো।", event.threadID, event.messageID);
+    }
+  } catch (err) {
+    console.error(err);
+    return api.sendMessage("⚠️ অপ্রত্যাশিত ত্রুটি ঘটেছে।", event.threadID, event.messageID);
+  }
+};
+
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
