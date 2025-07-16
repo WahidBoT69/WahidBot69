@@ -1,21 +1,4 @@
-module.exports.config = {
-  name: "natsuki",
-  version: "1.0.1",
-  hasPermssion: 2,
-  credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
-  description: "Tạo ra một avt trên taoanhdep.",
-  commandCategory: "tạo ảnh",
-  cooldowns: 0,
-  dependencies: {
-      "fs-extra": "",
-      "request": "",
-      "axios": "",
-      "node-fetch": ""
-        }
-};
-
-module.exports.run = async function ({ api, args, event}) {
-  const fs = global.nodemodule["fs-extra"];
+const fs = global.nodemodule["fs-extra"];
 const axios = global.nodemodule["axios"];
 const fetch = global.nodemodule["node-fetch"];
 const streamBuffers = require("stream-buffers");
@@ -23,7 +6,7 @@ const streamBuffers = require("stream-buffers");
 module.exports.config = {
   name: "natsuki",
   version: "1.0.1",
-  hasPermssion: 0,
+  hasPermssion: 2,
   credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️ (Modified by ChatGPT)",
   description: "DDLC Natsuki ক্যারেক্টার দিয়ে anime-style avt তৈরি",
   commandCategory: "tạo ảnh",
